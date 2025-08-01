@@ -1,0 +1,320 @@
+.slide-down-enter-active,
+.slide-down-leave-active {
+   transition: all 0.3s ease;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+   opacity: 0;
+   transform: translateY(-50px);
+}
+
+.PromoCodeModal__overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(0, 0, 0, 0.8);
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   padding-top: 20vh;
+   z-index: 1000;
+}
+
+.PromoCodeModal {
+   background: var(--vt-c-white);
+   border-radius: 12px;
+   padding: 30px;
+   width: 100%;
+   max-width: 516px;
+   position: relative;
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.PromoCodeModal__close {
+   position: absolute;
+   top: 12px;
+   right: 12px;
+   font-size: 26px;
+   width: 24px;
+   height: 24px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border: none;
+   border-radius: 50%;
+   cursor: pointer;
+   color: var(--vt-c-black);
+   background-color: var(--vt-c-background-accent);
+   transition: color 0.3s;
+}
+
+.PromoCodeModal__close:hover {
+   color: var(--vt-c-divider-dark-2);
+}
+
+.PromoCodeModal__title {
+   margin-top: 0;
+   margin-bottom: 16px;
+   font-size: 20px;
+   font-weight: bold;
+   color: var(--vt-c-black);
+}
+
+.PromoCodeModal__steps {
+   display: flex;
+   gap: 16px;
+   margin-bottom: 24px;
+   border-bottom: 1px solid var(--vt-c-divider-light-1);
+}
+
+.PromoCodeModal__step {
+   padding: 8px 16px;
+   color: var(--vt-c-white-mute);
+   background: none;
+   border: none;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   width: 50%;
+   text-align: center;
+}
+
+.PromoCodeModal__step.active {
+   color: var(--vt-c-accent);
+   border-bottom: 1px solid var(--vt-c-accent);
+}
+
+.PromoCodeModal__form {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.PromoCodeModal__form-group {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.PromoCodeModal__form-item-title {
+   font-size: 14px;
+   line-height: 18px;
+   color: var(--vt-c-black);
+   margin-bottom: 6px;
+   font-weight: bold;
+
+   span {
+      color: var(--vt-c-error);
+   }
+}
+
+.PromoCodeModal__form-input {
+   padding: 15px 12px;
+   background-color: var(--vt-c-white-soft);
+   width: 100%;
+   border: 1px solid transparent;
+   border-radius: 8px;
+   font-size: 16px;
+   transition: border-color 0.3s;
+}
+
+.PromoCodeModal__form-input-textarea {
+   resize: none;
+}
+
+.PromoCodeModal__textarea-wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+}
+
+.PromoCodeModal__char-counter {
+   font-size: 12px;
+   color: var(--vt-c-text-light-2);
+   padding: 2px 6px;
+   border-radius: 4px;
+}
+
+.PromoCodeModal__form-input-textarea {
+   padding-bottom: 28px;
+   resize: none;
+}
+
+.PromoCodeModal__form-input-num {
+   position: relative;
+}
+
+.PromoCodeModal__form-input-num::before {
+   position: absolute;
+   top: 12px;
+   left: 12px;
+   z-index: 100;
+   content: url("@/components/icons/refCoin.svg");
+   width: 24px;
+   height: 24px;
+}
+
+.PromoCodeModal__form-input--pl {
+   padding-left: 44px;
+}
+
+.PromoCodeModal__form-input:focus {
+   outline: none;
+   border-color: var(--vt-c-accent);
+}
+
+.PromoCodeModal__form-input.error {
+   border-color: var(--vt-c-error);
+}
+
+.PromoCodeModal__error-message {
+   color: var(--vt-c-error);
+   font-size: 14px;
+   min-height: 18px;
+}
+
+.PromoCodeModal__form-actions {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.PromoCodeModal__submit-button {
+   padding: 11px;
+   background-color: var(--vt-c-button-accent);
+   color: var(--vt-c-white-soft);
+   border: none;
+   border-radius: 12px;
+   font-size: 14px;
+   cursor: pointer;
+   transition: opacity 0.3s;
+   width: 50%;
+   margin-right: 12px;
+}
+
+.PromoCodeModal__submit-button--back {
+   background-color: var(--vt-c-white-soft);
+   color: var(--vt-c-white-mute);
+}
+
+.PromoCodeModal__submit-button:last-child {
+   margin-right: 0;
+}
+
+.PromoCodeModal__submit-button:hover {
+   opacity: 0.8;
+}
+
+.PromoCodeModal__date-fields {
+   display: flex;
+}
+
+.PromoCodeModal__date-field {
+   display: flex;
+   flex-direction: column;
+   margin-right: 20px;
+   width: 100%;
+}
+
+.PromoCodeModal__date-field:last-child {
+   margin-right: 0;
+}
+
+.PromoCodeModal__date-field label {
+   font-size: 13px;
+   color: var(--vt-c-text-light-1);
+}
+
+.PromoCodeModal__checkbox-field {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   margin-top: 8px;
+   padding-bottom: 20px;
+   border-bottom: 1px solid var(--vt-c-white-mute);
+}
+
+.PromoCodeModal__checkbox-field input {
+   width: 20px;
+   height: 20px;
+   border-color: var(--vt-c-white-soft);
+   border-radius: 4px;
+}
+
+.PromoCodeModal__checkbox-field label {
+   color: var(--vt-c-button-accent);
+}
+
+.PromoCodeModal__radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.PromoCodeModal__form-item-title--radio {
+   margin-bottom: 16px;
+   color: var(--vt-c-button-accent);
+}
+
+.PromoCodeModal__radio-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.PromoCodeModal__radio-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 2px solid var(--vt-c-divider-dark-1);
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--vt-c-white);
+    opacity: 0;
+    transition: all 0.2s ease;
+  }
+  
+  &:checked {
+    border-color: var(--vt-c-accent);
+    border-width: 6px;
+    
+    &::before {
+      opacity: 1;
+      width: 10px;
+      height: 10px;
+    }
+  }
+  
+  &:not(:checked)::before {
+    width: 14px;
+    height: 14px;
+    background-color: var(--vt-c-white-soft);
+    opacity: 1;
+  }
+}
+
+.PromoCodeModal__radio-label {
+  font-size: 14px;
+  color: var(--vt-c-button-accent);
+  cursor: pointer;
+  user-select: none;
+}
