@@ -156,7 +156,7 @@ const receiveMethods: ReceiveMethodOption[] = [
                      type="radio"
                      :value="method.value"
                      :checked="receiveMethod === method.value"
-                     @update:modelValue="(val) => emit('update:receiveMethod', (Number(val) === 1 ? 1 : 0) as 0 | 1)"
+                     @update:modelValue="(val) => emit('update:receiveMethod', Number(val) as 0 | 1)"
                      class="PromoCodeModal__radio-input"
                   />
                   <label

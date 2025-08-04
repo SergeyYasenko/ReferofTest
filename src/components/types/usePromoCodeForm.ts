@@ -1,9 +1,8 @@
 import { ref, computed, watch } from "vue";
-import { useForm } from "vee-validate";
+import { useForm, useField } from "vee-validate";
 import type { FormValues } from "./types";
 import { schema } from "./validation";
 import { createNoEndDateRef } from "./validation";
-import { useField } from "vee-validate";
 
 interface PromoCodeFormEmits {
    (e: "update:modelValue", value: boolean): void;
@@ -13,6 +12,7 @@ export const usePromoCodeForm = (emit: PromoCodeFormEmits) => {
    const currentStep = ref<number>(1);
    const noEndDate = createNoEndDateRef();
 
+   // Создаем отдельные поля для правильной работы с метаданными
    const { value: promoCode, meta: promoCodeMeta } =
       useField<string>("promoCode");
    const { value: title, meta: titleMeta } = useField<string>("title");
@@ -30,29 +30,23 @@ export const usePromoCodeForm = (emit: PromoCodeFormEmits) => {
    const { value: receiveMethod, meta: receiveMethodMeta } = useField<0 | 1>(
       "receiveMethod"
    );
-   receiveMethod.value = 0;
+
+   const { handleSubmit, errors, resetForm, validateField } =
+      useForm<FormValues>({
+         validationSchema: schema,
+         initialValues: {
+            promoCode: "",
+            title: "",
+            description: "",
+            points: 0,
+            startDate: null,
+            endDate: null,
+            activationLimit: 0,
+            receiveMethod: 0,
+         } as FormValues,
+      });
 
    const charCount = computed<number>(() => description.value?.length || 0);
-
-   const {
-      handleSubmit,
-      errors,
-      resetForm,
-      validateField,
-      meta: formMeta,
-   } = useForm<FormValues>({
-      validationSchema: schema,
-      initialValues: {
-         promoCode: "",
-         title: "",
-         description: "",
-         points: 0,
-         startDate: null,
-         endDate: null,
-         activationLimit: 0,
-         receiveMethod: 0,
-      } as FormValues,
-   });
 
    const goToStep = async (step: number): Promise<void> => {
       if (step === 2) {
@@ -73,13 +67,33 @@ export const usePromoCodeForm = (emit: PromoCodeFormEmits) => {
       }
    });
 
-   const onSubmit = handleSubmit((values: FormValues) => {
-      console.log("Создан промокод:", {
-         ...values,
+   // Автоматическое преобразование промокода в верхний регистр
+   watch(
+      () => promoCode.value,
+      (newValue: string | undefined) => {
+         if (newValue && newValue !== newValue.toUpperCase()) {
+            promoCode.value = newValue.toUpperCase();
+         }
+      }
+   );
+
+   const onSubmit = () => {
+      // Собираем все данные из полей
+      const formData = {
+         promoCode: promoCode.value,
+         title: title.value,
+         description: description.value,
+         points: points.value,
+         startDate: startDate.value,
+         endDate: endDate.value,
+         activationLimit: activationLimit.value,
+         receiveMethod: receiveMethod.value,
          noEndDate: noEndDate.value,
-      });
+      };
+
+      console.log("Создан промокод:", formData);
       closeModal();
-   });
+   };
 
    const closeModal = (): void => {
       emit("update:modelValue", false);
@@ -87,15 +101,6 @@ export const usePromoCodeForm = (emit: PromoCodeFormEmits) => {
       currentStep.value = 1;
       noEndDate.value = false;
    };
-
-   watch(
-      () => promoCode.value,
-      (newValue: string | undefined) => {
-         if (newValue) {
-            promoCode.value = newValue.toUpperCase();
-         }
-      }
-   );
 
    return {
       currentStep,

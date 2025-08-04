@@ -36,7 +36,11 @@ export const schema = yup.object({
       .required("Обязательно поле")
       .min(1, "Минимум 1 активация")
       .typeError("Только числовые значения"),
-   receiveMethod: yup.string().required("Выберите способ получения"),
+   receiveMethod: yup
+      .number()
+      .required("Выберите способ получения")
+      .oneOf([0, 1], "Неверное значение")
+      .typeError("Только числовые значения"),
 });
 
 export const createNoEndDateRef = () => ref(false);

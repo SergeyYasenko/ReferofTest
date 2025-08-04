@@ -2,7 +2,6 @@
 import { usePromoCodeForm } from "@/components/types/usePromoCodeForm.ts";
 import Step1Form from "./components/Step1Form.vue";
 import Step2Form from "./components/Step2Form.vue";
-import { reactive } from "vue";
 
 const props = defineProps({
    modelValue: {
@@ -63,16 +62,20 @@ const {
 
             <template v-if="currentStep === 1">
                <Step1Form
-                  v-model:promoCode="promoCode"
-                  v-model:title="title"
-                  v-model:description="description"
-                  v-model:points="points"
+                  :promoCode="promoCode"
+                  :title="title"
+                  :description="description"
+                  :points="points"
                   :promoCodeAttrs="formAttrs.promoCode"
                   :titleAttrs="formAttrs.title"
                   :descriptionAttrs="formAttrs.description"
                   :pointsAttrs="formAttrs.points"
                   :errors="errors"
                   :charCount="charCount"
+                  @update:promoCode="(val) => (promoCode = val)"
+                  @update:title="(val) => (title = val)"
+                  @update:description="(val) => (description = val)"
+                  @update:points="(val) => (points = val)"
                   @submit="goToStep(2)"
                   @cancel="closeModal"
                >
@@ -81,16 +84,21 @@ const {
             </template>
             <template v-else>
                <Step2Form
-                  v-model:startDate="startDate"
-                  v-model:endDate="endDate"
-                  v-model:activationLimit="activationLimit"
-                  v-model:receiveMethod="receiveMethod"
-                  v-model:noEndDate="noEndDate"
+                  :startDate="startDate"
+                  :endDate="endDate"
+                  :activationLimit="activationLimit"
+                  :receiveMethod="receiveMethod"
+                  :noEndDate="noEndDate"
                   :startDateAttrs="formAttrs.startDate"
                   :endDateAttrs="formAttrs.endDate"
                   :activationLimitAttrs="formAttrs.activationLimit"
                   :receiveMethodAttrs="formAttrs.receiveMethod"
                   :errors="errors"
+                  @update:startDate="(val) => (startDate = val)"
+                  @update:endDate="(val) => (endDate = val)"
+                  @update:activationLimit="(val) => (activationLimit = val)"
+                  @update:receiveMethod="(val) => (receiveMethod = val)"
+                  @update:noEndDate="(val) => (noEndDate = val)"
                   @submit="onSubmit"
                   @back="goToStep(1)"
                >

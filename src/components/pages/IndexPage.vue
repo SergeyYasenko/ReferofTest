@@ -35,14 +35,14 @@ const toggleModal = () => {
    cursor: pointer;
    padding: 15px 30px;
    font-size: 23px;
-   background-color: var(--color-background-soft);
+   background-color: var(--vt-c-button-accent);
    color: var(--vt-c-text-dark-1);
    border: none;
    border-radius: 19px;
    transition: all 0.3s ease;
 
    &:hover {
-      background-color: var(--color-background);
+      opacity: 0.8;
    }
 
    &.active {
